@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-const yourKey = process.env.MANIFOLD_API_KEY;
+// const yourKey = process.env.MANIFOLD_API_KEY;
 
 const API_URL = "https://manifold.markets/api/v0";
 
@@ -112,9 +112,7 @@ export type fill = {
 };
 
 export const getFullMarket = async (id: string) => {
-  const market: FullMarket = await fetch(`${API_URL}/market/${id}`).then(
-    (res) => res.json()
-  );
+  const market: FullMarket = await fetch(`${API_URL}/market/${id}`).then((res) => res.json());
   return market;
 };
 
@@ -146,10 +144,19 @@ export const getAllMarkets = async () => {
 };
 
 export const getMarketBySlug = async (slug: string) => {
-  const market: FullMarket = await fetch(`${API_URL}/slug/${slug}`).then(
-    (res) => res.json()
-  );
+  const market: FullMarket = await fetch(`${API_URL}/slug/${slug}`).then((res) => res.json());
   return market;
+};
+
+export const searchBinaryMarkets = async (limit: number): Promise<LiteMarket[]> => {
+  const params = {
+    limit,
+    filter: "open",
+    contractType: "BINARY",
+  };
+  return await fetch(`${API_URL}/v0/search-markets?${formatQueryString(params)}`).then((res) =>
+    res.json()
+  );
 };
 
 interface BetQueryParams {
@@ -164,12 +171,10 @@ interface BetQueryParams {
 export const getBets = async (queryParams: BetQueryParams) => {
   const queryString = Object.keys(queryParams)
     .filter((key) => queryParams[key] !== undefined)
-    .map((key) => key + "=" + queryParams[key])
+    .map((key) => `${key}=${queryParams[key]}`)
     .join("&");
 
-  const bets: Bet[] = await fetch(`${API_URL}/bets?${queryString}`).then(
-    (res) => res.json()
-  );
+  const bets: Bet[] = await fetch(`${API_URL}/bets?${queryString}`).then((res) => res.json());
   return bets ?? [];
 };
 
@@ -188,28 +193,37 @@ export const getUserBets = async (username: string) => {
   return allBets;
 };
 
-export const placeBet = (bet: {
-  contractId: string;
-  outcome: "YES" | "NO";
-  amount: number;
-  limitProb?: number;
-}) => {
+export const placeBet = (
+  bet: {
+    contractId: string;
+    outcome: "YES" | "NO";
+    amount: number;
+    limitProb?: number;
+  },
+  apiKey: string
+) => {
   return fetch(`${API_URL}/bet`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Key ${yourKey}`,
+      Authorization: `Key ${apiKey}`,
     },
     body: JSON.stringify(bet),
   }).then((res) => res.json());
 };
 
-export const cancelBet = (betId: string) => {
+export const cancelBet = (betId: string, apiKey: string) => {
   return fetch(`${API_URL}/bet/cancel/${betId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Key ${yourKey}`,
+      Authorization: `Key ${apiKey}`,
     },
   }).then((res) => res.json());
 };
+
+function formatQueryString(params: Record<string, string | number | undefined>) {
+  return Object.keys(params)
+    .map((key) => `${key}=${params[key]}`)
+    .join("&");
+}

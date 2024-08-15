@@ -1,5 +1,7 @@
 {
-    "compilerOptions": {},
-    "include": ["src"],
-    "exclude": ["node_modules"]
+	"compilerOptions": {
+		"resolveJsonModule": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
 }
