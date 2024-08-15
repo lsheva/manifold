@@ -148,7 +148,7 @@ export const getMarketBySlug = async (slug: string) => {
   return market;
 };
 
-export const searchBinaryMarkets = async (limit: number): Promise<LiteMarket[]> => {
+export const searchOpenBinaryMarkets = async (limit: number): Promise<LiteMarket[]> => {
   const params = {
     limit,
     filter: "open",
@@ -199,6 +199,7 @@ export const placeBet = (
     outcome: "YES" | "NO";
     amount: number;
     limitProb?: number;
+    dryRun?: boolean;
   },
   apiKey: string
 ) => {

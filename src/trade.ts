@@ -9,7 +9,8 @@ export async function trade(
   username: string,
   apiKey: string,
   contractId: string,
-  tradeIntervalMs: number
+  tradeIntervalMs: number,
+  dryRun = false
 ) {
   let lastBetId: string | undefined = undefined;
   let lastProbability: number | undefined = undefined;
@@ -59,6 +60,7 @@ export async function trade(
             amount: BET_AMOUNT,
             outcome,
             limitProb,
+            dryRun,
           },
           apiKey
         );
