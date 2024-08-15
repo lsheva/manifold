@@ -4,7 +4,8 @@ import * as accounts from "../accounts.json";
 
 async function main() {
   const traders: { userName: string; apiKey: string }[] = accounts;
-  const tradeIntervalMs = 10 * 60 * 1000; // 10 minutes
+  // const tradeIntervalMs = 10 * 60 * 1000; // 10 minutes
+  const tradeIntervalMs = 10 * 1000; // 10 seconds
   const numTickers = 5;
   const dryRun = true; // whether to actually place bets
 
@@ -16,6 +17,7 @@ async function main() {
 
   // load markets
   const markets = await searchOpenBinaryMarkets(numTickers);
+  console.log("markers", markets);
   console.log("Loaded", markets.length, "markets");
   console.log(markets.map((m) => m.id).join(", "));
 

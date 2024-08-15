@@ -24,6 +24,8 @@ export async function trade(
       limit: 5,
     });
 
+    console.log("bets refreshed");
+
     // filter out limit orders, redemptions, and antes
     const newBets = loadedBets.filter((bet) => bet.amount > 0 && !bet.isRedemption && !bet.isAnte);
 

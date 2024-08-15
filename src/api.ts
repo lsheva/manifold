@@ -154,7 +154,7 @@ export const searchOpenBinaryMarkets = async (limit: number): Promise<LiteMarket
     filter: "open",
     contractType: "BINARY",
   };
-  return await fetch(`${API_URL}/v0/search-markets?${formatQueryString(params)}`).then((res) =>
+  return await fetch(`${API_URL}/search-markets?${formatQueryString(params)}`).then((res) =>
     res.json()
   );
 };
