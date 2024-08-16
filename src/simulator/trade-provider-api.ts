@@ -1,6 +1,6 @@
-import { assets } from "./fixtures";
-import type { Order } from "./interfaces";
-import { randomInt } from "./utils";
+import { assets } from "../fixtures";
+import type { Order } from "../interfaces";
+import { randomInt } from "../utils";
 
 export class TradeProviderApiMock {
   buyShares(trade: Order): Promise<void> {

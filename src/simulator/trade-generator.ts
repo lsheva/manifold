@@ -1,10 +1,10 @@
-import { assets } from "./fixtures";
-import type { Trade } from "./interfaces";
-import { randomInt, sleep } from "./utils";
+import { assets } from "../fixtures";
+import type { Trade } from "../interfaces";
+import { randomInt, sleep } from "../utils";
 
 async function main() {
-  const numTraders = 5;
-  const tradeIntervalMs = 10 * 60 * 1000; // 10 minutes
+  const numTraders = 10;
+  const tradeIntervalMs = 5 * 60 * 1000; // 5 minutes
 
   while (true) {
     for (let i = 0; i < numTraders; i++) {

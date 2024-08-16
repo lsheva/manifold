@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
-import type { Trade, TradeProvider } from "./interfaces";
-import { sleep } from "./utils";
+import type { Trade, TradeProvider } from "../interfaces";
+import { sleep } from "../utils";
 
 interface TradeOrder {
   trade: Trade;
@@ -21,12 +21,12 @@ export class TradeWatcher {
 
   async startWatching(): Promise<void> {
     while (true) {
-      console.log("\nWatching trades...");
+      console.log("\nWatching asset prices...");
       await sleep(this.checkIntervalMs);
 
       for (const [asset, trades] of this.assetsMap.entries()) {
         const price = await this.tradeProvider.getPrice(asset);
-        console.log(`Price of ${asset} is\t$${price}`);
+        console.log(`\nPrice of ${asset} is\t$${price}`);
 
         for (const order of trades) {
           // check if the order is not already purchased

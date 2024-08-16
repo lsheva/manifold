@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import type { Trade } from "./interfaces";
+import type { Trade } from "../interfaces";
 import { TradeWatcher } from "./trade-watcher";
 import { TradeProviderApiMock } from "./trade-provider-api";
 
