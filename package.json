@@ -4,12 +4,15 @@
   "description": "Simple prototype trading bot using Manifold API",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "start-batch": "ts-node src/batch.ts"
+    "start-batch": "ts-node src/batch.ts",
+    "trade-executor": "ts-node src/trade-executor.ts",
+    "trade-generator": "ts-node src/trade-generator.ts"
   },
   "author": "Manifold",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "16.3.1"
+    "dotenv": "16.3.1",
+    "fastify": "^4.28.1"
   },
   "devDependencies": {
     "@types/node": "20.6.3",
